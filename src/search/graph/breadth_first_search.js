@@ -1,22 +1,28 @@
 var BreadthFirstSearch = function(graph, start, callbacks) {
   var vertex, edge, y;
   var discovered = {};
+  var processed={};
   var parents = {};
 
   var queue = [start];
+  var noop = function(){};
   discovered[start] = true;
 
-  if(typeof callbacks == 'undefined') {
-    callbacks = {
-      onProcessVertexEarly: function(){},
-    };
-  }
+  callbacks = callbacks || {}
+  callbacks.onProcessVertexEarly = callbacks.onProcessVertexEarly || noop;
+  callbacks.onProcessVertexLate = callbacks.onProcessVertexLate || noop;
+  callbacks.onProcessEdge = callbacks.onProcessEdge || noop;
+
   while(queue.length > 0) {
     vertex = queue.shift();
-    if(callbacks.onProcessVertexEarly) callbacks.onProcessVertexEarly(vertex);
+    callbacks.onProcessVertexEarly(vertex);
+    processed[vertex] = true;
     edge = graph.vertices[vertex]
     while(edge) {
       y = edge.y;
+      if(!processed[y] || graph.isDirected) {
+        callbacks.onProcessEdge(vertex, y);
+      }
       if (!discovered[y]) {
         queue.push(y);
         parents[y] = vertex;
@@ -24,6 +30,7 @@ var BreadthFirstSearch = function(graph, start, callbacks) {
       }
       edge = edge.next;
     };
+    callbacks.onProcessVertexLate(vertex);
   }
   this.parents = parents;
 };
