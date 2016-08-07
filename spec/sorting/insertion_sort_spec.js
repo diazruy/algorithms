@@ -1,4 +1,4 @@
-insertionSort = require('../src/insertion_sort.js');
+insertionSort = require('../../src/sorting/insertion_sort.js');
 describe('insertionSort', function(){
   it('sorts the input', function() {
     var input = [4,6,2,7,5,8,1,9,3]

@@ -1,4 +1,4 @@
-var quickSort = require('../src/quick_sort.js');
+var quickSort = require('../../src/sorting/quick_sort.js');
 
 describe('Quicksort', function(){
   it('sorts the input', function(){

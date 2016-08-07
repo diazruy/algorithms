@@ -1,4 +1,4 @@
-var mergeSort = require('../src/merge_sort.js');
+var mergeSort = require('../../src/sorting/merge_sort.js');
 describe('mergeSort', function(){
   it('sorts the input', function() {
     var input = [4,6,2,7,5,8,1,9,3]

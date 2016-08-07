@@ -1,4 +1,4 @@
-selectionSort = require('../src/selection_sort.js');
+selectionSort = require('../../src/sorting/selection_sort.js');
 describe('selectionSort', function(){
   it('sorts the input', function() {
     var input = [4,6,2,7,5,8,1,9,3]
