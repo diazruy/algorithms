@@ -11,8 +11,10 @@ var DepthFirstSearch = function(graph, start, callbacks) {
   function search(graph, vertex) {
     var y;
     var edge = graph.vertices[vertex];
+    callbacks.onProcessVertexEarly(vertex);
     while(edge) {
       y = edge.y;
+      callbacks.onProcessEdge(vertex, y);
       if(!discovered[y]) {
         discovered[y] = true;
         parents[y] = vertex;
@@ -20,6 +22,7 @@ var DepthFirstSearch = function(graph, start, callbacks) {
       }
       edge = edge.next;
     }
+    callbacks.onProcessVertexLate(vertex);
   }
   search(graph, start);
 
