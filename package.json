@@ -1,0 +1,7 @@
+{
+  "name": "algorithms",
+  "version": "0.0.1",
+  "dependencies": {
+    "jasmine-node": "~1.14.5"
+  }
+}
