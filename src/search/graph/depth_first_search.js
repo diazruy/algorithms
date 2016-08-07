@@ -7,23 +7,22 @@ var DepthFirstSearch = function(graph, start, callbacks) {
   callbacks.onProcessVertexEarly = callbacks.onProcessVertexEarly || noop;
   callbacks.onProcessVertexLate = callbacks.onProcessVertexLate || noop;
   callbacks.onProcessEdge = callbacks.onProcessEdge || noop;
-  var stack = [start];
-  discovered[start] = true;
-  while(stack.length > 0) {
-    vertex = stack.pop();
-    callbacks.onProcessVertexEarly(vertex);
-    edge = graph.vertices[vertex];
+
+  function search(graph, vertex) {
+    var y;
+    var edge = graph.vertices[vertex];
     while(edge) {
       y = edge.y;
-      callbacks.onProcessEdge(vertex, y);
       if(!discovered[y]) {
-        stack.push(y);
         discovered[y] = true;
         parents[y] = vertex;
+        search(graph, y);
       }
       edge = edge.next;
     }
   }
+  search(graph, start);
+
   this.start = start;
   this.parents = parents;
 };

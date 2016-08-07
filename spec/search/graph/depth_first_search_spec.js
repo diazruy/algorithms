@@ -26,7 +26,7 @@ describe('DepthFirstSearch', function(){
 
   describe('findPath' , function(){
     it('returns the path to a given node', function(){
-      expect(dfs.findPath('d')).toEqual(['a','b', 'f', 'e', 'd']);
+      expect(dfs.findPath('b')).toEqual(['a','c', 'd', 'e', 'g', 'f', 'b']);
     })
   });
 
