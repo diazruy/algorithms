@@ -1,33 +1,38 @@
 var DepthFirstSearch = function(graph, start, callbacks) {
-  var discovered = {};
-  var parents = {};
   var edge, y, vertex;
   var noop = function(){};
+  var finishEarly = false;
   callbacks = callbacks || {};
   callbacks.onProcessVertexEarly = callbacks.onProcessVertexEarly || noop;
   callbacks.onProcessVertexLate = callbacks.onProcessVertexLate || noop;
   callbacks.onProcessEdge = callbacks.onProcessEdge || noop;
 
-  function search(graph, vertex) {
+  this.start = start;
+  this.parents = {};
+  this.discovered = {};
+  this.processed = {};
+
+  var search = (function (graph, vertex) {
     var y;
     var edge = graph.vertices[vertex];
-    callbacks.onProcessVertexEarly(vertex);
+    if(finishEarly) return;
+    this.discovered[vertex] = true;
+    finishEarly = finishEarly || callbacks.onProcessVertexEarly(vertex);
     while(edge) {
       y = edge.y;
-      callbacks.onProcessEdge(vertex, y);
-      if(!discovered[y]) {
-        discovered[y] = true;
-        parents[y] = vertex;
+      if(!this.discovered[y]) {
+        finishEarly = callbacks.onProcessEdge(vertex, y, this);
+        this.parents[y] = vertex;
         search(graph, y);
+      } else if(!this.processed[y] || graph.isDirected){
+        finishEarly = finishEarly || callbacks.onProcessEdge(vertex, y, this);
       }
       edge = edge.next;
     }
-    callbacks.onProcessVertexLate(vertex);
-  }
+    finishEarly = finishEarly || callbacks.onProcessVertexLate(vertex);
+  }).bind(this);
   search(graph, start);
 
-  this.start = start;
-  this.parents = parents;
 };
 
 DepthFirstSearch.prototype.findPath = function(vertex) {
