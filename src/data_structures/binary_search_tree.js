@@ -39,6 +39,38 @@ BinarySearchTree.prototype = {
       }
     }
     return node;
+  },
+
+  search: function(key) {
+    var node = this.root;
+    while(node !== null && node.key !== key) {
+      if (key < node.key) {
+        node = node.left;
+      } else {
+        node = node.right;
+      }
+    }
+    return node;
+  },
+
+  min: function() {
+    var node = this.root;
+    var parent;
+    while(node !== null) {
+      parent = node;
+      node = node.left;
+    }
+    return parent;
+  },
+
+  max: function(){
+    var node = this.root;
+    var parent;
+    while(node !== null) {
+      parent = node;
+      node = node.right;
+    }
+    return parent;
   }
 };
 
