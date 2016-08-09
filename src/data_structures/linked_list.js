@@ -10,6 +10,7 @@ LinkedList.prototype ={
       next: this.head
     };
     this.head = node;
+    return node;
   },
 
   search: function(key) {
