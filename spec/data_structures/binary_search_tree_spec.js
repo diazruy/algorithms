@@ -50,10 +50,18 @@ describe('BinarySearchTree', function(){
         });
 
         describe('when adding a granchild', function(){
-          it('inserts a new node as a third level', function(){
-            var grandChild = tree.insert(1);
-            expect(grandChild.parent).toEqual(node);
+          var grandChild;
+          beforeEach(function(){
+            grandChild = tree.insert(1);
           });
+
+          it('inserts a new node as a third level', function(){
+            expect(node.left).toEqual(grandChild);
+          });
+
+          it('sets the parent of the child to the second level', function(){
+            expect(grandChild.parent).toEqual(node);
+          })
         });
       });
 
@@ -88,24 +96,59 @@ describe('BinarySearchTree', function(){
 
   describe('given a tree', function(){
     beforeEach(function(){
-      tree.insert(6);
-      tree.insert(7);
-      tree.insert(2);
-      tree.insert(8);
-      tree.insert(1);
+      tree.insert(6); //     6
+      tree.insert(7); //    / \
+      tree.insert(2); //   2   7
+      tree.insert(9); //  / \   \
+      tree.insert(8); // 1   3   9
+      tree.insert(1); //        /
+      tree.insert(3); //       8
     });
 
     describe('min', function(){
-      it('returns the smallest node in the tree', function(){
-        expect(tree.min().key).toEqual(1);
+      describe('without an argument', function(){
+        it('returns the smallest node in the tree', function(){
+          expect(tree.min().key).toEqual(1);
+        });
+      });
+
+      describe('with an argument', function(){
+        it('returns the smallest node in the subtree', function(){
+          var node = tree.search(9);
+          expect(tree.min(node).key).toEqual(8);
+        });
       });
     });
 
     describe('max', function(){
-      it('returns the largest node in the tree', function(){
-        expect(tree.max().key).toEqual(8);
+      describe('without an argument', function(){
+        it('returns the largest node in the tree', function(){
+          expect(tree.max().key).toEqual(9);
+        });
+      });
+
+      describe('when given a node', function(){
+        it('returns the largest node in the subtree', function(){
+          var node = tree.search(2);
+          expect(tree.max(node).key).toEqual(3);
+        });
+      });
+    });
+
+    describe('pred', function(){
+      describe('when the node has a left subtree', function(){
+        it('returns the node preceding a given node', function(){
+          var node = tree.search(9);
+          expect(tree.pred(node).key).toEqual(8);
+        });
+      });
+
+      describe('when the node has no left subtree', function(){
+        it('returns the node preceding a given node', function(){
+          var node = tree.search(3);
+          expect(tree.pred(node).key).toEqual(2);
+        });
       });
     });
   });
-
 });
