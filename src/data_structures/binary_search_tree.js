@@ -53,6 +53,21 @@ BinarySearchTree.prototype = {
     return node;
   },
 
+  searchRecursive: function(key, subtree) {
+    var node;
+    if (typeof subtree === 'undefined') subtree = this.root;
+    if(subtree === null || key === subtree.key) {
+      node = subtree;
+    } else {
+      if (key < subtree.key) {
+        node = this.searchRecursive(key, subtree.left);
+      } else {
+        node = this.searchRecursive(key, subtree.right);
+      }
+    }
+    return node;
+  },
+
   min: function(subtree) {
     var node = subtree || this.root;
     if (node.left === null) {

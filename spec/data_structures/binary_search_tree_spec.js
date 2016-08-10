@@ -94,6 +94,27 @@ describe('BinarySearchTree', function(){
     });
   });
 
+  describe('searchRecursive', function(){
+    it('finds a key on the left', function(){
+      var node;
+      tree.insert(2);
+      node = tree.insert(1);
+      expect(tree.searchRecursive(1)).toEqual(node);
+    });
+    it('finds a key on the right', function(){
+      var node;
+      tree.insert(1);
+      node = tree.insert(2);
+      expect(tree.searchRecursive(2)).toEqual(node);
+    });
+
+    describe('when the key is not found', function(){
+      it('returns null', function(){
+        expect(tree.searchRecursive(2)).toBeNull();
+      });
+    });
+  });
+
   describe('given a tree', function(){
     beforeEach(function(){
       tree.insert(6); //     6
