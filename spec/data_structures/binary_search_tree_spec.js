@@ -180,5 +180,11 @@ describe('BinarySearchTree', function(){
         });
       });
     });
+
+    describe('inOrder', function(){
+      it('returns an array of keys in order', function(){
+        expect(tree.inOrder()).toEqual([1,2,3,6,7,8,9]);
+      });
+    });
   });
 });

@@ -100,6 +100,16 @@ BinarySearchTree.prototype = {
       succ = parent;
     }
     return succ;
+  },
+
+  inOrder: function() {
+    var node = this.min();
+    var keys = [];
+    while(node !== null){
+      keys.push(node.key);
+      node = this.succ(node);
+    }
+    return keys;
   }
 };
 
