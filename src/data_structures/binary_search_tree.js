@@ -41,6 +41,30 @@ BinarySearchTree.prototype = {
     return node;
   },
 
+  remove: function(node){
+    var child;
+    var parent = node.parent;
+
+    if(node.left === null && node.right === null) {
+      // No children
+      child = null;
+    } else if (node.left !== null && node.right !== null) {
+      // Two children
+      child = this.min(node.right);
+      child.left = node.left;
+      node.left.parent = child;
+    } else {
+      // One child only
+      child = node.left || node.right;
+    }
+    if(child !== null) child.parent = parent;
+    if(node === parent.left) {
+      parent.left = child;
+    } else {
+      parent.right = child;
+    }
+  },
+
   search: function(key) {
     var node = this.root;
     while(node !== null && node.key !== key) {

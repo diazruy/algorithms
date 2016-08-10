@@ -73,6 +73,77 @@ describe('BinarySearchTree', function(){
     });
   });
 
+  describe('remove', function(){
+    describe('when the node has no children', function(){
+      it('removes the node', function(){
+        var node4, node5;
+        node5 = tree.insert(5);
+        node4 = tree.insert(4);
+        tree.remove(node4);
+        expect(tree.search(4)).toBeNull();
+        expect(node5.left).toBeNull();
+      });
+    });
+
+    describe('when the node has one child', function(){
+      describe('when the child is the left branch', function(){
+        var node3, node4, node5;
+
+        beforeEach(function(){    //     5      5
+          node5 = tree.insert(5); //    /      /
+          node4 = tree.insert(4); //   4  ->  3
+          node3 = tree.insert(3); //  /
+          tree.remove(node4);     // 3
+        });
+
+        it('moves the child to be a child of the grandparent', function(){
+          expect(node3.parent).toEqual(node5);
+          expect(node5.left).toEqual(node3);
+        });
+      });
+
+      describe('when the child is the right branch', function(){
+        var node3, node4, node5;
+
+        beforeEach(function(){    // 3       3
+          node3 = tree.insert(3); //  \       \
+          node4 = tree.insert(4); //   4  ->   5
+          node5 = tree.insert(5); //    \
+          tree.remove(node4);     //     5
+        });
+
+        it('moves the child to be a child of the grandparent', function(){
+          expect(node5.parent).toEqual(node3);
+          expect(node3.right).toEqual(node5);
+        });
+      });
+    });
+
+    describe('when the node has two children', function(){
+      var node3, node4, node5, node6, node7;
+
+      beforeEach(function(){    //     7         7
+        node7 = tree.insert(7); //    /         /
+        node4 = tree.insert(4); //   4    ->   5
+        node5 = tree.insert(5); //  / \       / \
+        node3 = tree.insert(3); // 3   5     3   6
+        node6 = tree.insert(6); //      \
+        tree.remove(node4);     //       6
+      });
+
+      it('removes the node', function(){
+        expect(tree.search(4)).toBeNull();
+      });
+
+      it("moves the node's right branch minimum to where the node used to be", function(){
+        expect(node7.left).toEqual(node5);
+        expect(node5.parent).toEqual(node7);
+        expect(node5.left).toEqual(node3);
+        expect(node3.parent).toEqual(node5);
+      });
+    });
+  });
+
   describe('search', function(){
     it('finds a key on the left', function(){
       var node;
