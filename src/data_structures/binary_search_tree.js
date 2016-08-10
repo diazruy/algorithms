@@ -110,6 +110,18 @@ BinarySearchTree.prototype = {
       node = this.succ(node);
     }
     return keys;
+  },
+
+  inOrderRecursive: function(node) {
+    var nodes;
+    if(node === null) {
+      nodes = [];
+    } else {
+      nodes = this.inOrderRecursive(node.left);
+      nodes = nodes.concat([node.key]);
+      nodes = nodes.concat(this.inOrderRecursive(node.right));
+    }
+    return nodes;
   }
 };
 
