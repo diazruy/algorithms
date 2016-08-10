@@ -78,14 +78,28 @@ BinarySearchTree.prototype = {
       pred = this.max(node.left);
     } else {
       parent = node.parent;
-      parent = node.parent;
-      if (parent === null) return null; // Root node
       while(parent !== null && node === parent.left){
-        parent = parent.parent
+        node = parent;
+        parent = parent.parent;
       }
       pred = parent;
     }
     return pred;
+  },
+
+  succ: function(node){
+    var succ, parent;
+    if (node.right !== null) {
+      succ = this.min(node.right);
+    } else {
+      parent = node.parent;
+      while(parent !== null && node === parent.right){
+        node = parent;
+        parent = parent.parent;
+      }
+      succ = parent;
+    }
+    return succ;
   }
 };
 

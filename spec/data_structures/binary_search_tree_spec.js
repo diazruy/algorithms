@@ -137,16 +137,46 @@ describe('BinarySearchTree', function(){
 
     describe('pred', function(){
       describe('when the node has a left subtree', function(){
-        it('returns the node preceding a given node', function(){
+        it('returns the maximum of the subtree', function(){
           var node = tree.search(9);
           expect(tree.pred(node).key).toEqual(8);
         });
       });
 
       describe('when the node has no left subtree', function(){
-        it('returns the node preceding a given node', function(){
+        it('returns the first ancestor where the node is in the right branch', function(){
           var node = tree.search(3);
           expect(tree.pred(node).key).toEqual(2);
+        });
+
+        describe('when there is no predecessor', function(){
+          it('returns null', function(){
+            var node = tree.search(1);
+            expect(tree.pred(node)).toBeNull();
+          });
+        });
+      });
+    });
+
+    describe('succ', function(){
+      describe('when the node has a right subtree', function(){
+        it('returns the minimum in the subtree', function(){
+          var node = tree.search(6);
+          expect(tree.succ(node).key).toEqual(7);
+        });
+      });
+
+      describe('when the node has no right subtree', function(){
+        it('returns the first ancestor where the node is in the left branch', function(){
+          var node = tree.search(3);
+          expect(tree.succ(node).key).toEqual(6);
+        });
+
+        describe('when there is no successor', function(){
+          it('returns null', function(){
+            var node = tree.search(9);
+            expect(tree.succ(node)).toBeNull();
+          });
         });
       });
     });
