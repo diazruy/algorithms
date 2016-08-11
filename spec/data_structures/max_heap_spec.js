@@ -5,11 +5,12 @@ describe('MaxHeap', function(){
 
   beforeEach(function(){              //        9              9
     array = [9, 4, 7, 2, 3, 1, 8, 6]; //      /   \          /   \
-    heap = new MaxHeap(array);        //     4     7   ->   6     8
-  });                                 //    / \   / \      / \   / \
-                                      //   2   3 1   8    4   3 1   7
+    heap = new MaxHeap([])   ;        //     4     7   ->   6     8
+    heap.buildHeap(array);            //    / \   / \      / \   / \
+  });                                 //   2   3 1   8    4   3 1   7
                                       //  /              /
                                       // 6              2
+
 
   describe('heapify', function(){
     it('floats down a value to the right place', function(){
@@ -43,5 +44,53 @@ describe('MaxHeap', function(){
       heap.sort();
       expect(heap.array).toEqual([1, 2, 3, 4, 6, 7, 8, 9]);
     })
+  });
+
+  describe('pop', function(){
+    it('returns the key at the root of the heap', function(){
+      expect(heap.pop()).toEqual(9);
+    });
+
+    it('removes the key at the root of the heap', function(){
+      heap.pop();
+      expect(heap.heapSize).toEqual(array.length - 1);
+    });
+
+    it('rebalances the heap', function(){
+      heap.pop();
+      expect(heap.peek()).toEqual(8);
+    });
+
+    describe('when the heap is empty', function(){
+      it('throws an error', function(){
+        heap = new MaxHeap([]);
+        expect(function(){heap.pop()}).toThrow(new Error('heap underflow'));
+      });
+    })
+  });
+
+  describe('increase', function(){
+    it('moves the given key to the new position', function(){
+      heap.increase(7,5);
+      expect(heap.array[7]).toEqual(4);
+      expect(heap.array[3]).toEqual(5);
+    });
+
+    it('raises an error if reducing the value', function(){
+      expect(function(){ heap.increase(7, 1); }).toThrow(new Error("can't reduce the value 2 to 1"));
+    });
+  });
+
+  describe('push', function(){
+    it('adds a new item in the right position', function(){
+      heap.push(5);
+      expect(heap.array[3]).toEqual(5);
+      expect(heap.array[8]).toEqual(4);
+    });
+
+    it('increases the heapSize', function(){
+      heap.push(5);
+      expect(heap.heapSize).toEqual(9);
+    });
   });
 });

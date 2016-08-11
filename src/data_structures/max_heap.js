@@ -29,4 +29,25 @@ MaxHeap.prototype.heapify = function(index) {
     this.heapify(largest);
   }
 };
+
+MaxHeap.prototype.increase = function(index, key) {
+  var temp, parent;
+  if(this.array[index] > key) throw new Error("can't reduce the value " + this.array[index] + ' to ' + key);
+  this.array[index] = key;
+  parent = this.parent(index);
+  while(index > 0 && this.array[parent] < this.array[index]) {
+    temp = this.array[parent];
+    this.array[parent] = this.array[index]
+    this.array[index] = temp;
+    index = parent;
+    parent = this.parent(index);
+  }
+};
+
+MaxHeap.prototype.push = function(key) {
+  this.array[this.heapSize] = -1;
+  this.increase(this.heapSize, key);
+  this.heapSize++;
+};
+
 module.exports = MaxHeap;

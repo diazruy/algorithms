@@ -38,4 +38,10 @@ describe('BaseHeap', function(){
       expect(heap.leafStart()).toEqual(4);
     });
   });
+
+  describe('peek', function(){
+    it('returns the key at the root of the heap', function(){
+      expect(heap.peek()).toEqual(9);
+    });
+  });
 });

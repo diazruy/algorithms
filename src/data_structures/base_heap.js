@@ -44,6 +44,22 @@ BaseHeap.prototype = {
 
   heapify: function(index) {
     throw "Subclasses must implement";
+  },
+
+  peek: function() {
+    return this.array[0];
+  },
+
+  pop: function() {
+    var root, temp;
+    if(this.heapSize < 1) throw new Error('heap underflow');
+    root = this.array[0];
+    this.heapSize--;
+    if(this.heapSize > 0) {
+      this.array[0] = this.array[this.heapSize];
+      this.heapify();
+    }
+    return root;
   }
 };
 
