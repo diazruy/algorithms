@@ -3,7 +3,6 @@ var LinkedList = require('./linked_list.js');
 var DoublyLinkedList = function() {
   this.head = null;
   this.tail = null;
-  return this;
 };
 
 DoublyLinkedList.prototype = Object.create(LinkedList.prototype);

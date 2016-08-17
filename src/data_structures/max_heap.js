@@ -3,7 +3,6 @@ var BaseHeap = require('./base_heap.js');
 var MaxHeap = function(array){
   this.array = array;
   this.heapSize = array.length;
-  return this;
 };
 
 MaxHeap.prototype = Object.create(BaseHeap.prototype)

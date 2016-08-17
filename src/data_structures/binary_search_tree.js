@@ -3,7 +3,6 @@ var TreeNode = function(key){
   this.parent = null;
   this.left = null;
   this.right = null;
-  return this;
 };
 
 var BinarySearchTree = function() {

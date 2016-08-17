@@ -1,7 +1,6 @@
 var BaseHeap = function(array){
   this.array = array;
   this.heapSize = array.length;
-  return this;
 };
 BaseHeap.prototype = {
 

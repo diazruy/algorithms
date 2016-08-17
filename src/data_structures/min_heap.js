@@ -3,7 +3,6 @@ var BaseHeap = require('./base_heap.js');
 var MinHeap = function(array){
   this.array = array;
   this.heapSize = array.length;
-  return this;
 };
 
 MinHeap.prototype = Object.create(BaseHeap.prototype)

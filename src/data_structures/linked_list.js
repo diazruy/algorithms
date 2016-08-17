@@ -1,6 +1,5 @@
 var LinkedList = function() {
   this.head = null;
-  return this;
 };
 
 LinkedList.prototype ={
